@@ -38,3 +38,4 @@ clock.pack()
 if __name__ == '__main__':
     laikas()
     tinklas.mainloop()
+
