@@ -1,41 +1,38 @@
 from tkinter import *
-import time
+from datetime import datetime
 
 
-tinklas = Tk()
-tinklas.title("Laikrodis")
-width = 600
-height = 400
-vaizdo_plotis = tinklas.winfo_screenwidth()
-vaizdo_virsus = tinklas.winfo_screenheight()
-x = (vaizdo_plotis/2)- (width/2)
-y = (vaizdo_virsus/2) - (height/2)
-tinklas.geometry("%dx%d+%d+%d" % (width, height, x, y))
-tinklas.resizable(0, 0)
-tinklas.config(bg="black")
+cor1 = "#3d3d3d"  # juoda
+cor2 = "#fafcff"  # balta
+cor3 = "#21c25c"  # zalia
 
 
-def laikas():
-    p_laikas = time.strftime('%I: %M: %S')
-    clock.config(text=p_laikas)
-    clock.after(200, laikas)
+root = Tk()
+root.title("Laikrodis")
+root.geometry('')
+root.resizable(width=TRUE, height=TRUE)
+root.configure(background=cor1)
 
 
-virsus = Frame(tinklas, width=600, bd=1, relief=SOLID)
-virsus.pack(side=TOP)
-vidurys = Frame(tinklas, width=600)
-vidurys.pack(side=TOP, expand=1)
+def laikrodis():
+    time = datetime.now()
+
+    valanda = time.strftime("%H:%M:%S")
+    savaites_diena = time.strftime("%A")
+    diena = time.day
+    menesiai= time.strftime("%b")
+    metai = time.strftime("%Y")
+    l1.config(text=valanda)
+    l1.after(200, laikrodis)
+    l2.config(text=savaites_diena + "" + str(diena) + "/" + str(menesiai) + "/" + (metai))
 
 
+l1 = Label(root, text="10:05:05", font=('ds-digital', 120 , 'bold'), bg=cor1, fg=cor3)
+l1.grid(row=0, column=0, sticky=NW, padx=5)
 
-lbl_title = Label(virsus, text="Pirmasis projektukas:Laikrodukas", width=600, font=("arial", 20))
-lbl_title.pack(fill=X)
+l2 = Label(root,  font=('ds-digital', 60 , 'bold'), bg=cor1, fg=cor3)
+l2.grid(row=1, column=0, sticky=NW, padx=5)
 
-clock = Label(vidurys, font=('ds-digital', 150 , 'bold'), fg="green", bg="black")
-clock.pack()
+laikrodis()
 
-
-if __name__ == '__main__':
-    laikas()
-    tinklas.mainloop()
-
+root.mainloop()
